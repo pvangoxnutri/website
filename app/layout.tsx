@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif } from 'next/font/google'
+import { Inter, Instrument_Serif, Raleway } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
@@ -14,6 +14,13 @@ const instrumentSerif = Instrument_Serif({
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-instrument-serif',
+})
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  weight: '900',
+  display: 'swap',
+  variable: '--font-raleway',
 })
 
 export const metadata: Metadata = {
@@ -35,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${raleway.variable}`}>
       <body className="font-sans bg-cream text-sq-dark antialiased">
         {children}
       </body>

@@ -1,6 +1,6 @@
 export default function AppStoreSection() {
   return (
-    <section className="w-full px-6 md:px-10 py-20 md:py-24 border-t border-sq-border">
+    <section id="social" className="w-full px-6 md:px-10 py-20 md:py-24 border-t border-sq-border">
       <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
 
         {/* Blurred QR placeholder with lock overlay */}

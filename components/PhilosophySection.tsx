@@ -1,6 +1,6 @@
 export default function PhilosophySection() {
   return (
-    <section className="w-full px-6 md:px-10 py-20 md:py-28 border-t border-sq-border">
+    <section id="philosophy" className="w-full px-6 md:px-10 py-20 md:py-28 border-t border-sq-border">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
 
