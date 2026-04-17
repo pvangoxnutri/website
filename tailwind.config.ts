@@ -39,11 +39,21 @@ const config: Config = {
       },
       animation: {
         'fade-up': 'fadeUp 0.6s ease forwards',
+        'popup': 'popup 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        'backdrop': 'backdropIn 0.25s ease forwards',
       },
       keyframes: {
         fadeUp: {
           '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        popup: {
+          '0%':   { opacity: '0', transform: 'scale(0.5) translateY(24px)' },
+          '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+        },
+        backdropIn: {
+          '0%':   { opacity: '0' },
+          '100%': { opacity: '1' },
         },
       },
     },

@@ -1,5 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
+import { useRouter } from 'next/navigation'
+
 const navLinks = [
   { label: 'The Philosophy', id: 'philosophy' },
   { label: 'Early Access', id: 'waitlist' },
@@ -9,8 +12,23 @@ const navLinks = [
 ]
 
 export default function Navbar() {
+  const router = useRouter()
+  const clickCount = useRef(0)
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleLogoClick = () => {
+    clickCount.current += 1
+    if (clickTimer.current) clearTimeout(clickTimer.current)
+    if (clickCount.current >= 3) {
+      clickCount.current = 0
+      router.push('/admin/login')
+      return
+    }
+    clickTimer.current = setTimeout(() => { clickCount.current = 0 }, 1000)
   }
 
   return (
@@ -18,7 +36,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between gap-6">
 
         {/* Logo */}
-        <div className="flex items-end shrink-0">
+        <div className="flex items-end shrink-0" onClick={handleLogoClick}>
           <span
             style={{
               fontFamily: 'var(--font-raleway), sans-serif',

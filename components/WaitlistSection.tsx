@@ -1,20 +1,26 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-// Mock data — replace with real API when backend is ready
 const TOTAL_SPOTS = 100
-const CLAIMED_SPOTS = 47
 
 export default function WaitlistSection() {
   const [email, setEmail] = useState('')
+  const [instagram, setInstagram] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [claimed, setClaimed] = useState<number | null>(null)
 
-  const remaining = TOTAL_SPOTS - CLAIMED_SPOTS
-  const progressPct = (CLAIMED_SPOTS / TOTAL_SPOTS) * 100
+  useEffect(() => {
+    fetch('/api/waitlist/stats')
+      .then((r) => r.json())
+      .then((d) => setClaimed(d.claimed))
+  }, [])
+
+  const remaining = claimed === null ? '—' : String(TOTAL_SPOTS - claimed)
+  const progressPct = claimed === null ? 0 : (claimed / TOTAL_SPOTS) * 100
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,11 +31,26 @@ export default function WaitlistSection() {
       return
     }
 
+    if (!instagram.trim()) {
+      setError('Please enter your Instagram username.')
+      return
+    }
+
     setLoading(true)
-    // TODO: POST to /api/waitlist with { email }
-    await new Promise((r) => setTimeout(r, 1000))
+    const res = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, instagram }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      setError(data.error || 'Something went wrong.')
+      setLoading(false)
+      return
+    }
     setSubmitted(true)
     setLoading(false)
+    setClaimed((c) => (c === null ? 1 : c + 1))
   }
 
   return (
@@ -89,7 +110,7 @@ export default function WaitlistSection() {
                   />
                 </div>
                 <div className="flex justify-between mt-2">
-                  <span className="text-[10.5px] text-white/30">{CLAIMED_SPOTS} claimed</span>
+                  <span className="text-[10.5px] text-white/30">{claimed ?? '—'} claimed</span>
                   <span className="text-[10.5px] text-white/30">{remaining} left</span>
                 </div>
               </div>
@@ -97,18 +118,28 @@ export default function WaitlistSection() {
               {/* Form */}
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="max-w-[380px]">
-                  <div className="flex gap-3">
+                  <div className="flex flex-col gap-3">
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="flex-1 min-w-0 px-4 py-3.5 bg-white/8 border border-white/15 rounded-full text-white placeholder:text-white/30 text-[13.5px] outline-none focus:border-sq-pink/60 transition-colors"
+                      className="w-full px-4 py-3.5 bg-neutral-800 border border-white/15 rounded-full text-white placeholder:text-neutral-500 text-[13.5px] outline-none focus:border-sq-pink/60 transition-colors"
                     />
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 text-[13.5px] pointer-events-none">@</span>
+                      <input
+                        type="text"
+                        value={instagram}
+                        onChange={(e) => setInstagram(e.target.value.replace(/^@/, ''))}
+                        placeholder="Your Instagram username"
+                        className="w-full pl-8 pr-4 py-3.5 bg-neutral-800 border border-white/15 rounded-full text-white placeholder:text-neutral-500 text-[13.5px] outline-none focus:border-sq-pink/60 transition-colors"
+                      />
+                    </div>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="px-6 py-3.5 bg-sq-pink text-white text-[13.5px] font-semibold rounded-full hover:bg-sq-pink-hover active:scale-[0.97] disabled:opacity-70 transition-all duration-150 whitespace-nowrap tracking-tight"
+                      className="w-full px-6 py-3.5 bg-sq-pink text-white text-[13.5px] font-semibold rounded-full hover:bg-sq-pink-hover active:scale-[0.97] disabled:opacity-70 transition-all duration-150 tracking-tight"
                     >
                       {loading ? 'Joining…' : 'Join Now'}
                     </button>
@@ -121,15 +152,9 @@ export default function WaitlistSection() {
                   </p>
                 </form>
               ) : (
-                <div className="max-w-[380px] bg-white/8 border border-white/15 rounded-2xl px-6 py-5">
-                  <p className="text-[15px] font-semibold text-white mb-1">
-                    You&apos;re on the list. 🎉
-                  </p>
-                  <p className="text-[13px] text-white/50 leading-relaxed">
-                    We&apos;ll reach out with your launch invite. Thanks for
-                    joining early — your spot is secured.
-                  </p>
-                </div>
+                <p className="text-[13px] text-white/30 max-w-[380px]">
+                  Application received. We&apos;ll be in touch.
+                </p>
               )}
             </div>
 
@@ -148,6 +173,34 @@ export default function WaitlistSection() {
           </div>
         </div>
       </div>
+
+      {/* Success popup */}
+      {submitted && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center animate-backdrop">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setSubmitted(false)} />
+          <div className="relative animate-popup bg-[#111111] border border-white/10 rounded-3xl p-10 max-w-[400px] w-full mx-5 shadow-hero text-center">
+
+            <button
+              onClick={() => setSubmitted(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-white/30 hover:text-white/60 hover:bg-white/10 transition-colors text-[16px]"
+            >
+              ✕
+            </button>
+
+            {/* Pink pulse dot */}
+            <div className="w-14 h-14 rounded-full bg-sq-pink/15 flex items-center justify-center mx-auto mb-7">
+              <div className="w-5 h-5 rounded-full bg-sq-pink" />
+            </div>
+
+            <h3 className="text-[26px] font-bold text-white leading-tight tracking-[-0.025em] mb-3">
+              You&apos;re in&nbsp;— almost.
+            </h3>
+            <p className="text-[14px] text-white/50 leading-relaxed">
+              We&apos;ll review your Instagram and let you know by email once your spot is confirmed.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

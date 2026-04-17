@@ -62,7 +62,7 @@ export default function AppStoreSection() {
 
         {/* Platform / date */}
         <p className="text-[13px] text-sq-muted mb-7">
-          iOS &amp; Android · 2025
+          iOS · 2026
         </p>
 
         {/* Instagram link */}
