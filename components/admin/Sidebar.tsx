@@ -28,11 +28,7 @@ function UsersIcon() {
 function MessageIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M2 2A1 1 0 001 3v8a1 1 0 001 1h1v2.5l3-2.5H13a1 1 0 001-1V3a1 1 0 00-1-1H2z"
-      />
+      <path fillRule="evenodd" clipRule="evenodd" d="M2 2A1 1 0 001 3v8a1 1 0 001 1h1v2.5l3-2.5H13a1 1 0 001-1V3a1 1 0 00-1-1H2z" />
     </svg>
   )
 }
@@ -63,17 +59,15 @@ const navItems = [
   { label: 'ANALYTICS', href: '/admin/analytics', icon: ChartIcon },
 ]
 
-export default function Sidebar() {
+type Props = { isOpen: boolean; onClose: () => void }
+
+export default function Sidebar({ isOpen, onClose }: Props) {
   const pathname = usePathname()
 
-  return (
+  const content = (
     <aside className="w-[240px] shrink-0 bg-white h-full flex flex-col border-r border-gray-100">
-      {/* Logo */}
       <div className="px-6 pt-7 pb-6">
-        <div
-          className="text-[17px] font-black text-gray-900 tracking-tight leading-none"
-          style={{ fontFamily: 'var(--font-raleway)' }}
-        >
+        <div className="text-[17px] font-black text-gray-900 tracking-tight leading-none" style={{ fontFamily: 'var(--font-raleway)' }}>
           SideQuest
         </div>
         <div className="text-[9px] font-semibold tracking-[0.2em] text-gray-400 mt-1.5 uppercase">
@@ -81,7 +75,6 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Nav */}
       <nav className="px-3 flex-1">
         {navItems.map(({ label, href, icon: Icon }) => {
           const isActive = pathname === href
@@ -89,10 +82,9 @@ export default function Sidebar() {
             <Link
               key={href}
               href={href}
+              onClick={onClose}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl mb-0.5 text-[10.5px] font-bold tracking-[0.1em] transition-all ${
-                isActive
-                  ? 'bg-[#5C2637] text-white shadow-sm'
-                  : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
+                isActive ? 'bg-[#5C2637] text-white shadow-sm' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
               }`}
             >
               <Icon />
@@ -102,7 +94,6 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Bottom actions */}
       <div className="p-4 flex flex-col gap-2">
         <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-full text-[12px] font-semibold hover:bg-gray-800 transition-colors">
           <UploadIcon />
@@ -116,5 +107,24 @@ export default function Sidebar() {
         </Link>
       </div>
     </aside>
+  )
+
+  return (
+    <>
+      {/* Desktop: always visible */}
+      <div className="hidden lg:flex h-full">
+        {content}
+      </div>
+
+      {/* Mobile: overlay */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+          <div className="relative h-full">
+            {content}
+          </div>
+        </div>
+      )}
+    </>
   )
 }

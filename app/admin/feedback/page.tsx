@@ -46,6 +46,11 @@ export default function FeedbackPage() {
     })
   }
 
+  const deleteFeedback = async (id: string) => {
+    setFeedback((prev) => prev.filter((f) => f.id !== id))
+    await fetch(`/api/admin/feedback/${id}`, { method: 'DELETE' })
+  }
+
   const markAllRead = async () => {
     const unread = feedback.filter((f) => !f.is_read)
     setFeedback((prev) => prev.map((f) => ({ ...f, is_read: true })))
@@ -110,14 +115,19 @@ export default function FeedbackPage() {
               </div>
               <p className="text-[13.5px] text-gray-600 leading-relaxed mb-4">&ldquo;{item.message}&rdquo;</p>
               <div className="flex items-center justify-between pt-3 border-t border-gray-50">
-                {!item.is_read ? <span className="w-2 h-2 rounded-full bg-[#D98FAB]" /> : <span />}
-                {!item.is_read ? (
-                  <button onClick={() => markRead(item.id)} className="text-[10.5px] font-bold text-[#D98FAB] hover:text-[#C87A99] uppercase tracking-wider transition-colors">
-                    Mark as read
-                  </button>
-                ) : (
-                  <span className="text-[10.5px] font-medium text-gray-300 uppercase tracking-wider">Read</span>
-                )}
+                <div className="flex items-center gap-3">
+                  {!item.is_read ? <span className="w-2 h-2 rounded-full bg-[#D98FAB]" /> : <span />}
+                  {!item.is_read ? (
+                    <button onClick={() => markRead(item.id)} className="text-[10.5px] font-bold text-[#D98FAB] hover:text-[#C87A99] uppercase tracking-wider transition-colors">
+                      Mark as read
+                    </button>
+                  ) : (
+                    <span className="text-[10.5px] font-medium text-gray-300 uppercase tracking-wider">Read</span>
+                  )}
+                </div>
+                <button onClick={() => deleteFeedback(item.id)} className="text-[10.5px] font-bold text-gray-300 hover:text-red-400 uppercase tracking-wider transition-colors">
+                  Delete
+                </button>
               </div>
             </div>
           ))}

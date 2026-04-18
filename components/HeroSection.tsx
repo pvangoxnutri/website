@@ -42,18 +42,18 @@ export default function HeroSection() {
           </p>
 
           {/* Main headline */}
-          <h1 className="text-[52px] md:text-[60px] lg:text-[68px] font-bold text-sq-dark leading-[1.04] tracking-[-0.03em] mb-7">
+          <h1 className="text-[40px] sm:text-[52px] md:text-[60px] lg:text-[68px] font-bold text-sq-dark leading-[1.04] tracking-[-0.03em] mb-7">
             Plan the trip.
             <br />
             Add the side
             <br />
-            <span className="font-serif italic font-normal text-[54px] md:text-[62px] lg:text-[70px] tracking-[-0.02em]">
+            <span className="font-serif italic font-normal text-[42px] sm:text-[54px] md:text-[62px] lg:text-[70px] tracking-[-0.02em]">
               quests.
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-[15px] text-sq-muted leading-[1.7] mb-8 max-w-[380px]">
+          <p className="text-[15px] text-sq-muted leading-[1.7] mb-8 max-w-full md:max-w-[380px]">
             Travel planning should be fun. Organize your ideas without getting
             lost in endless tabs — and create sidequests along the way.
           </p>
@@ -72,7 +72,7 @@ export default function HeroSection() {
           </div>
 
           {/* Feedback/collaboration card */}
-          <div className="bg-white rounded-2xl border border-sq-border p-5 max-w-[400px] shadow-card">
+          <div className="bg-white rounded-2xl border border-sq-border p-5 max-w-full md:max-w-[400px] shadow-card">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -103,9 +103,10 @@ export default function HeroSection() {
               className="relative w-full rounded-[28px] overflow-hidden shadow-hero"
               style={{
                 transform: 'rotate(1.5deg)',
-                aspectRatio: '4 / 5',
+                aspectRatio: 'var(--hero-ratio, 3/2)',
               }}
             >
+              <style>{`@media (min-width: 1024px) { :root { --hero-ratio: 4/5; } }`}</style>
               <Image
                 src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=900&q=85"
                 alt="Scenic road trip through mountains"

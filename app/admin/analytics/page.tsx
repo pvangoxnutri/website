@@ -18,10 +18,10 @@ export default function AnalyticsPage() {
   useEffect(() => {
     fetch('/api/admin/analytics')
       .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false) })
+      .then((d) => { setData(d.weeklyVisits ? d : null); setLoading(false) })
   }, [])
 
-  const maxVisits = data ? Math.max(...data.weeklyVisits.map((d) => d.visits), 1) : 1
+  const maxVisits = data?.weeklyVisits?.length ? Math.max(...data.weeklyVisits.map((d) => d.visits), 1) : 1
   const changePct = data?.changePct
   const changeLabel = changePct == null ? null : `${changePct > 0 ? '+' : ''}${changePct}%`
 

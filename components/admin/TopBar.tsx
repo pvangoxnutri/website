@@ -20,16 +20,17 @@ function BellIcon() {
   )
 }
 
-function SettingsIcon() {
+function MenuIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-      <circle cx="8" cy="8" r="2.5" />
-      <path d="M8 1.5v1.3M8 13.2v1.3M1.5 8h1.3M13.2 8h1.3M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9" />
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <path d="M2 4.5h14M2 9h14M2 13.5h14" />
     </svg>
   )
 }
 
-export default function TopBar() {
+type Props = { onMenuClick: () => void }
+
+export default function TopBar({ onMenuClick }: Props) {
   const pathname = usePathname()
   const router = useRouter()
   const [showMenu, setShowMenu] = useState(false)
@@ -40,17 +41,27 @@ export default function TopBar() {
   }
 
   return (
-    <header className="h-[52px] bg-white border-b border-gray-100 flex items-center px-6 shrink-0 z-10">
-      {/* Logo */}
+    <header className="h-[52px] bg-white border-b border-gray-100 flex items-center px-4 md:px-6 shrink-0 z-10 gap-3">
+
+      {/* Hamburger — mobile only */}
+      <button
+        onClick={onMenuClick}
+        className="lg:hidden w-8 h-8 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 transition-colors shrink-0"
+        aria-label="Open menu"
+      >
+        <MenuIcon />
+      </button>
+
+      {/* Logo — desktop only */}
       <div
-        className="text-[15px] font-black text-gray-900 tracking-tight mr-8 shrink-0"
+        className="hidden lg:block text-[15px] font-black text-gray-900 tracking-tight mr-8 shrink-0"
         style={{ fontFamily: 'var(--font-raleway)' }}
       >
         SideQuest
       </div>
 
-      {/* Nav tabs */}
-      <nav className="flex items-center gap-0.5 flex-1 h-full">
+      {/* Nav tabs — desktop only */}
+      <nav className="hidden lg:flex items-center gap-0.5 flex-1 h-full">
         {navItems.map(({ label, href }) => {
           const isActive = pathname === href
           return (
@@ -62,23 +73,23 @@ export default function TopBar() {
               }`}
             >
               {label}
-              {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900 rounded-t-full" />
-              )}
+              {isActive && <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gray-900 rounded-t-full" />}
             </Link>
           )
         })}
       </nav>
 
+      {/* Page title — mobile only */}
+      <span className="lg:hidden flex-1 text-[14px] font-bold text-gray-900 capitalize">
+        {navItems.find((n) => n.href === pathname)?.label ?? 'Admin'}
+      </span>
+
       {/* Right */}
-      <div className="flex items-center gap-2">
-        <button className="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 transition-colors">
+      <div className="flex items-center gap-2 ml-auto">
+        <button className="hidden sm:flex w-8 h-8 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 transition-colors">
           <BellIcon />
         </button>
-        <button className="w-8 h-8 flex items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 transition-colors">
-          <SettingsIcon />
-        </button>
-        <span className="text-[13px] text-gray-600 font-medium ml-2 mr-2">Admin Panel</span>
+        <span className="hidden md:block text-[13px] text-gray-600 font-medium mx-1">Admin Panel</span>
 
         <div className="relative">
           <button

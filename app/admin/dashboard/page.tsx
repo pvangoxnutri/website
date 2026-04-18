@@ -159,7 +159,8 @@ export default function DashboardPage() {
             <p className="px-6 pb-6 text-[13px] text-gray-400">No waitlist entries yet.</p>
           ) : (
             <>
-              <table className="w-full">
+              <div className="overflow-x-auto">
+              <table className="w-full min-w-[480px]">
                 <thead>
                   <tr className="border-b border-gray-100">
                     {['#', 'Email', 'Date', 'Status', 'Access'].map((h) => (
@@ -194,6 +195,7 @@ export default function DashboardPage() {
                 </tbody>
               </table>
 
+              </div>
               <div className="flex items-center justify-between px-5 py-4 border-t border-gray-50">
                 <span className="text-[12px] text-gray-400">
                   Showing {(page - 1) * PAGE_SIZE + pageEntries.length} of {waitlist.length} requests
