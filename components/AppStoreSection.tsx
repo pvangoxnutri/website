@@ -67,7 +67,7 @@ export default function AppStoreSection() {
 
         {/* Instagram link */}
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/sideqtravel"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-[13px] text-sq-dark font-medium border-b border-sq-dark/30 pb-0.5 hover:border-sq-dark transition-colors"

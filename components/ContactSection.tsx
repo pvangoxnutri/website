@@ -21,10 +21,10 @@ export default function ContactSection() {
             General Inquiries
           </p>
           <a
-            href="mailto:hello@sidequest.app"
+            href="mailto:SsidequestQ@outlook.com"
             className="text-[20px] font-semibold text-sq-dark hover:text-sq-muted transition-colors duration-150 tracking-tight"
           >
-            hello@sidequest.app
+            SsidequestQ@outlook.com
           </a>
         </div>
       </div>

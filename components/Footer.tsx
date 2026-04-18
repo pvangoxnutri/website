@@ -26,34 +26,11 @@ export default function Footer() {
           </span>
         </div>
 
-        {/* Links */}
-        <nav className="flex items-center gap-6" aria-label="Footer navigation">
-          {[
-            { label: 'Privacy', href: '/privacy' },
-            { label: 'Terms', href: '/terms' },
-            {
-              label: 'Instagram',
-              href: 'https://instagram.com',
-              external: true,
-            },
-          ].map(({ label, href, external }) => (
-            <a
-              key={label}
-              href={href}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener noreferrer' : undefined}
-              className="text-[12.5px] text-sq-muted hover:text-sq-dark transition-colors duration-150"
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-
         {/* Version badge */}
         <div className="inline-flex items-center gap-1.5 bg-sq-light border border-sq-border rounded-full px-3 py-1.5">
           <span className="w-1 h-1 rounded-full bg-sq-muted-light" />
           <span className="text-[10.5px] font-semibold uppercase tracking-[0.13em] text-sq-muted">
-            Version 0.2 Beta
+            Version 1.0
           </span>
         </div>
       </div>
