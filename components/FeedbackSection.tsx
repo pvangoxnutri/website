@@ -60,7 +60,7 @@ export default function FeedbackSection() {
 
               {/* Email / Anonymous */}
               {!isAnonymous ? (
-                <div className="flex gap-2 items-stretch">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="email"
                     value={email}
