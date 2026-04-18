@@ -64,7 +64,7 @@ export async function POST(req: Request) {
   const { email } = await req.json()
 
   const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM ?? 'SideQuest <noreply@sidequesttravel.app>',
+    from: `SideQuest <${process.env.RESEND_FROM ?? 'noreply@sidequesttravel.app'}>`,
     to: email,
     subject: "You're in — welcome to SideQuest 🎉",
     html,
