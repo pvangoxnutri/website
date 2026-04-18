@@ -61,8 +61,7 @@ export default function Navbar() {
 
           {/* Right */}
           <div className="flex items-center gap-3 shrink-0">
-            <span className="hidden md:block text-xs text-sq-muted font-medium">Beta v0.2</span>
-            <button
+<button
               onClick={() => scrollTo('waitlist')}
               className="hidden sm:block px-5 py-2.5 bg-sq-dark text-white text-[13px] font-medium rounded-full hover:bg-sq-dark-2 active:scale-[0.97] transition-all duration-150 tracking-tight"
             >
