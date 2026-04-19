@@ -19,22 +19,22 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="w-full px-6 md:px-10 pt-14 pb-20 md:pt-20 md:pb-28">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
+    <section className="w-full px-6 md:px-10 pt-5 pb-10 md:pt-20 md:pb-28">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-20 items-start">
 
         {/* ── LEFT COLUMN ── */}
         <div className="flex flex-col gap-0 order-1">
 
           {/* Pill badge */}
-          <div className="inline-flex self-start items-center gap-2 px-3.5 py-1.5 rounded-full bg-sq-light border border-sq-border mb-5">
+          <div className="inline-flex self-start items-center gap-2 px-3.5 py-1.5 rounded-full bg-sq-light border border-sq-border mb-3 md:mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-sq-pink animate-pulse" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-sq-muted">
               App Coming Soon
             </span>
           </div>
 
-          {/* Pre-headline */}
-          <p className="text-[13px] text-sq-muted leading-relaxed mb-6 max-w-sm">
+          {/* Pre-headline — hidden on mobile */}
+          <p className="hidden md:block text-[13px] text-sq-muted leading-relaxed mb-6 max-w-sm">
             Join early — the first 100 users unlock{' '}
             <span className="text-sq-dark font-medium">
               lifetime free access to all premium features.
@@ -42,24 +42,24 @@ export default function HeroSection() {
           </p>
 
           {/* Main headline */}
-          <h1 className="text-[40px] sm:text-[52px] md:text-[60px] lg:text-[68px] font-bold text-sq-dark leading-[1.04] tracking-[-0.03em] mb-7">
+          <h1 className="text-[34px] sm:text-[52px] md:text-[60px] lg:text-[68px] font-bold text-sq-dark leading-[1.04] tracking-[-0.03em] mb-3 md:mb-7">
             Plan the trip.
             <br />
             Add the side
             <br />
-            <span className="font-serif italic font-normal text-[42px] sm:text-[54px] md:text-[62px] lg:text-[70px] tracking-[-0.02em]">
+            <span className="font-serif italic font-normal text-[36px] sm:text-[54px] md:text-[62px] lg:text-[70px] tracking-[-0.02em]">
               quests.
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="text-[15px] text-sq-muted leading-[1.7] mb-8 max-w-full md:max-w-[380px]">
+          {/* Description — hidden on mobile */}
+          <p className="hidden md:block text-[15px] text-sq-muted leading-[1.7] mb-8 max-w-full md:max-w-[380px]">
             Travel planning should be fun. Organize your ideas without getting
             lost in endless tabs — and create sidequests along the way.
           </p>
 
           {/* CTA button */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-4 md:mb-8">
             <button
               onClick={() =>
                 document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })
