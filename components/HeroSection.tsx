@@ -20,10 +20,10 @@ export default function HeroSection() {
 
   return (
     <section className="w-full px-6 md:px-10 pt-14 pb-20 md:pt-20 md:pb-28">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start">
 
         {/* ── LEFT COLUMN ── */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-0 order-1">
 
           {/* Pill badge */}
           <div className="inline-flex self-start items-center gap-2 px-3.5 py-1.5 rounded-full bg-sq-light border border-sq-border mb-5">
@@ -71,8 +71,8 @@ export default function HeroSection() {
             <span className="text-xs text-sq-muted">No account needed</span>
           </div>
 
-          {/* Feedback/collaboration card */}
-          <div className="bg-white rounded-2xl border border-sq-border p-5 max-w-full md:max-w-[400px] shadow-card">
+          {/* Feedback/collaboration card — desktop only */}
+          <div className="hidden lg:block bg-white rounded-2xl border border-sq-border p-5 max-w-full md:max-w-[400px] shadow-card">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -94,8 +94,8 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── RIGHT COLUMN ── */}
-        <div className="relative flex items-start justify-center lg:justify-end pt-4 lg:pt-0">
+        {/* ── RIGHT COLUMN (image) ── */}
+        <div className="relative flex items-start justify-center lg:justify-end pt-4 lg:pt-0 order-2">
 
           {/* Hero image card with tilt */}
           <div className="relative w-full max-w-[420px] lg:max-w-none lg:w-[105%]">
@@ -147,6 +147,29 @@ export default function HeroSection() {
             />
           </div>
         </div>
+
+        {/* ── TOGETHER CARD — mobile only, below image ── */}
+        <div className="lg:hidden order-3 bg-white rounded-2xl border border-sq-border p-5 shadow-card">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="5.5" stroke="#D98FAB" strokeWidth="1.4" />
+                <path d="M4.5 7.5C5 8.5 6.5 9.5 8 8.5C9.5 7.5 9 5.5 7.5 5C6 4.5 4.5 5.5 5 7" stroke="#D98FAB" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-sq-dark mb-1 leading-snug">
+                We&apos;re building this together.
+              </p>
+              <p className="text-[12.5px] text-sq-muted leading-relaxed">
+                SideQuest is being shaped step by step — alongside the
+                explorers who use it. Your ideas, feedback, and wishes directly
+                influence what comes next.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   )

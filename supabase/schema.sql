@@ -35,4 +35,13 @@ create policy "public_insert_feedback"
   to anon, authenticated
   with check (true);
 
+create table if not exists public.page_views (
+  id         uuid        default gen_random_uuid() primary key,
+  country    text,
+  device     text        not null default 'desktop',
+  created_at timestamptz not null default now()
+);
+
+alter table public.page_views enable row level security;
+
 -- Service role bypasses RLS — admin reads/updates use service role key, no extra policies needed
