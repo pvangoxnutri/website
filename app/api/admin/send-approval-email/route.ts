@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const html = `<!DOCTYPE html>
 <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
@@ -112,6 +110,12 @@ This email was sent because you joined the SideQuest waitlist.
 If you didn't sign up, you can safely ignore this email.`
 
 export async function POST(req: Request) {
+  const resendApiKey = process.env.RESEND_API_KEY
+  if (!resendApiKey) {
+    return NextResponse.json({ error: 'RESEND_API_KEY is not configured.' }, { status: 503 })
+  }
+
+  const resend = new Resend(resendApiKey)
   const { email } = await req.json()
 
   const { error } = await resend.emails.send({
