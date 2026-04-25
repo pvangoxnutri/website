@@ -124,6 +124,7 @@ export async function POST(req: Request) {
     subject: "You're in — welcome to SideQuest",
     html,
     text,
+    reply_to: process.env.RESEND_REPLY_TO ?? 'hello@sidequesttravel.app',
   })
 
   if (error) {

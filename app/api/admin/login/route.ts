@@ -6,6 +6,9 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'sidequest2026'
 export async function POST(req: Request) {
   const { email, password } = await req.json()
 
+  console.log('Login attempt:', { email, password })
+  console.log('Expected:', { ADMIN_EMAIL, ADMIN_PASSWORD })
+
   if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
     const res = NextResponse.json({ ok: true })
     res.cookies.set('sq_admin', 'authenticated', {

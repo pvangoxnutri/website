@@ -27,6 +27,7 @@ export default function FeedbackSection() {
   }
 
   return (
+
     <section id="feedback" className="w-full px-6 md:px-10 py-20 md:py-28 border-t border-sq-border">
       <div className="max-w-6xl mx-auto flex justify-center">
 
@@ -49,6 +50,7 @@ export default function FeedbackSection() {
           </p>
 
           {!submitted ? (
+            <>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <textarea
                 value={feedback}
@@ -97,6 +99,20 @@ export default function FeedbackSection() {
                 {loading ? 'Sending…' : 'Send Feedback'}
               </button>
             </form>
+
+                {/* Info box moved to bottom */}
+            <div className="flex items-start gap-3 bg-sq-pink-light/40 border border-sq-pink-light rounded-2xl p-4 mt-10">
+              <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center mt-0.5">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path d="M9 2L10.8 7H16L11.4 10.2L13.2 15.2L9 12L4.8 15.2L6.6 10.2L2 7H7.2L9 2Z" stroke="#D98FAB" strokeWidth="1.4" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <div className="font-semibold text-sq-dark mb-0.5 text-[15px]">We&apos;re building this together.</div>
+                <div className="text-[13.5px] text-sq-muted leading-snug">SideQuest is being shaped step by step — alongside the explorers who use it. Your ideas, feedback, and wishes directly influence what comes next.</div>
+              </div>
+            </div>
+            </>
           ) : (
             <div className="bg-sq-light rounded-2xl border border-sq-border px-6 py-5 text-center">
               <p className="text-[16px] font-semibold text-sq-dark mb-1.5">

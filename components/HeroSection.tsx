@@ -1,23 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
 
 export default function HeroSection() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  const handleQuickJoin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-    setLoading(true)
-    // TODO: Connect to waitlist backend API
-    await new Promise((r) => setTimeout(r, 900))
-    setSubmitted(true)
-    setLoading(false)
-  }
-
   return (
     <section className="w-full px-6 md:px-10 pt-5 pb-10 md:pt-20 md:pb-28">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-20 items-start">
@@ -71,27 +56,6 @@ export default function HeroSection() {
             <span className="text-xs text-sq-muted">No account needed</span>
           </div>
 
-          {/* Feedback/collaboration card — desktop only */}
-          <div className="hidden lg:block bg-white rounded-2xl border border-sq-border p-5 max-w-full md:max-w-[400px] shadow-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <circle cx="7" cy="7" r="5.5" stroke="#D98FAB" strokeWidth="1.4" />
-                  <path d="M4.5 7.5C5 8.5 6.5 9.5 8 8.5C9.5 7.5 9 5.5 7.5 5C6 4.5 4.5 5.5 5 7" stroke="#D98FAB" strokeWidth="1.2" strokeLinecap="round" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[13px] font-semibold text-sq-dark mb-1 leading-snug">
-                  We&apos;re building this together.
-                </p>
-                <p className="text-[12.5px] text-sq-muted leading-relaxed">
-                  SideQuest is being shaped step by step — alongside the
-                  explorers who use it. Your ideas, feedback, and wishes directly
-                  influence what comes next.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* ── RIGHT COLUMN (image) ── */}
@@ -148,27 +112,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* ── TOGETHER CARD — mobile only, below image ── */}
-        <div className="lg:hidden order-3 bg-white rounded-2xl border border-sq-border p-5 shadow-card">
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-xl bg-sq-pink-light flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <circle cx="7" cy="7" r="5.5" stroke="#D98FAB" strokeWidth="1.4" />
-                <path d="M4.5 7.5C5 8.5 6.5 9.5 8 8.5C9.5 7.5 9 5.5 7.5 5C6 4.5 4.5 5.5 5 7" stroke="#D98FAB" strokeWidth="1.2" strokeLinecap="round" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-[13px] font-semibold text-sq-dark mb-1 leading-snug">
-                We&apos;re building this together.
-              </p>
-              <p className="text-[12.5px] text-sq-muted leading-relaxed">
-                SideQuest is being shaped step by step — alongside the
-                explorers who use it. Your ideas, feedback, and wishes directly
-                influence what comes next.
-              </p>
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>
