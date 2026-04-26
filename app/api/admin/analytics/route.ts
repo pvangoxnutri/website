@@ -29,6 +29,9 @@ export async function GET() {
     .from('page_views')
     .select('country, device, created_at')
 
+  console.log('Analytics API - views data:', views)
+  console.log('Analytics API - error:', error)
+
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
   const all = views ?? []

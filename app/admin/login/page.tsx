@@ -90,10 +90,6 @@ export default function AdminLogin() {
               {loading ? 'Signing in…' : 'Sign in'}
             </button>
           </form>
-
-          <p className="text-[10.5px] text-gray-300 text-center mt-5 select-none">
-            pontus.vango@gmail.com · sidequest2026
-          </p>
         </div>
       </div>
     </div>
